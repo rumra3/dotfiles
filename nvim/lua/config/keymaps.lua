@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>ov", vim.cmd.Ex)
 vim.keymap.set("n", "<Space>", "<NOP>")
 
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 vim.keymap.set("n", "G", "Gzz")
@@ -43,17 +41,6 @@ vim.keymap.set("n", "<leader>7", function() ui.nav_file(7) end)
 vim.keymap.set("n", "<leader>8", function() ui.nav_file(8) end)
 vim.keymap.set("n", "<leader>9", function() ui.nav_file(9) end)
 vim.keymap.set("n", "<leader>0", function() ui.nav_file(10) end)
--- shifted numberbar
-vim.keymap.set("n", "<leader>!", function() ui.nav_file(1) end)
-vim.keymap.set("n", "<leader>@", function() ui.nav_file(2) end)
-vim.keymap.set("n", "<leader>#", function() ui.nav_file(3) end)
-vim.keymap.set("n", "<leader>$", function() ui.nav_file(4) end)
-vim.keymap.set("n", "<leader>%", function() ui.nav_file(5) end)
-vim.keymap.set("n", "<leader>^", function() ui.nav_file(6) end)
-vim.keymap.set("n", "<leader>&", function() ui.nav_file(7) end)
-vim.keymap.set("n", "<leader>*", function() ui.nav_file(8) end)
-vim.keymap.set("n", "<leader>(", function() ui.nav_file(9) end)
-vim.keymap.set("n", "<leader>)", function() ui.nav_file(10) end)
 
 -- lsp
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -84,7 +71,6 @@ vim.keymap.set("n", "<leader>nr", ":NvimTreeRefresh<CR>", {}) -- refresh
 vim.keymap.set("n", "<leader>nf", ":NvimTreeFindFile<CR>", {}) -- search file
 
 -- neowords
-
 local neowords = require("neowords")
 local p = neowords.pattern_presets
 
@@ -97,16 +83,15 @@ local hops = neowords.get_word_hops(
 )
 
 -- nvim-surround
-
 require('nvim-surround').setup({
 	keymaps = {
-		normal          = 'gz',
-		normal_cur      = 'gZ',
-		normal_line     = 'gzgz',
+		normal      = 'gz',
+		normal_cur    = 'gZ',
+		normal_line   = 'gzgz',
 		normal_cur_line = 'gZgZ',
-		visual          = 'gz',
-		visual_line     = 'gZ',
-		delete          = 'gzd',
-		change          = 'gzc',
+		visual      = 'gz',
+		visual_line   = 'gZ',
+		delete      = 'gzd',
+		change      = 'gzc',
 	}
 })
