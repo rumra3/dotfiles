@@ -1,0 +1,6 @@
+# unmap mouse wheel
+prev_img
+next_img
+# and remap
+zoom_in 4
+zoom_out 5
