@@ -43,32 +43,50 @@ vim.keymap.set("n", "<leader>9", function() ui.nav_file(9) end)
 vim.keymap.set("n", "<leader>0", function() ui.nav_file(10) end)
 
 -- lsp
-vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
+vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
+vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end)
+vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end)
+vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end)
+vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end)
+vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end)
+vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end)
+vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end)
+vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end)
 
 -- telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>gr', function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") });
-end)
 
--- tree
-vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", {}) -- open/close
-vim.keymap.set("n", "<leader>nr", ":NvimTreeRefresh<CR>", {}) -- refresh
-vim.keymap.set("n", "<leader>nf", ":NvimTreeFindFile<CR>", {}) -- search file
+-- oil
+local oil_last_buf = nil
+local toggle_oil = function(dir)
+  if vim.bo.filetype == "oil" then
+    if oil_last_buf ~= nil then
+      vim.cmd.buffer(oil_last_buf)
+    end
+  else
+    oil_last_buf = vim.api.nvim_get_current_buf()
+    vim.cmd.edit(dir)
+  end
+end
+
+vim.keymap.set("n", "<leader>/", function() toggle_oil(".") end)
+vim.keymap.set("n", "<leader>.", function()
+  local path = vim.fn.expand('%')
+  local i = path:reverse():find('/', 1, true)
+  if i == nil then
+    -- no '/' -> we are in $CWD already
+    toggle_oil(".")
+  else
+    local dir = path:sub(0, -i)
+    toggle_oil(dir)
+  end
+end)
 
 -- neowords
 local neowords = require("neowords")

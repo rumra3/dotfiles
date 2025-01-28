@@ -6,48 +6,73 @@ local config = function(_, opts)
 	}
 	lsp.metals.setup{}
 	lsp.rust_analyzer.setup{}
+  lsp.lua_ls.setup {
+    on_init = function(client)
+      if client.workspace_folders then
+        local path = client.workspace_folders[1].name
+        if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+          return
+        end
+      end
 
-	local luasnip = require "luasnip"
-	-- nvim-cmp setup
-	local cmp = require "cmp"
-	cmp.setup {
-		snippet = {
-			expand = function(args)
-				vim.fn["vsnip#anonymous"](args.body)
-			end
-		},
-		mapping = cmp.mapping.preset.insert({
-			['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-			['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-			['<C-y>'] = cmp.mapping.confirm({ select = true }),
-			["<C-d>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete(),
-			["<CR>"] = vim.NIL,
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
-				else
-					fallback()
-				end
-			end, {"i", "s"}),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if luasnip.jumpable(-1) then
-					luasnip.jump(-1)
-				else
-					fallback()
-				end
-			end, {"i", "s"})
-		}),
-		formatting = {
-			format = function(entry, vim_item)
-				local function trim(text)
-					local max = 40
-					if text and text:len() > max then
-						text = text:sub(1,max) .. "..."
-					end
-					return text
-				end
+      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+        runtime = {
+          version = 'LuaJIT'
+        },
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME
+          }
+        }
+      })
+    end,
+    settings = {
+      Lua = {}
+    }
+  }
+
+  local luasnip = require "luasnip"
+  -- nvim-cmp setup
+  local cmp = require "cmp"
+  cmp.setup {
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+      ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<CR>"] = vim.NIL,
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
+          fallback()
+        end
+      end, {"i", "s"}),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
+      end, {"i", "s"})
+    }),
+    formatting = {
+      format = function(entry, vim_item)
+        local function trim(text)
+          local max = 40
+          if text and text:len() > max then
+            text = text:sub(1,max) .. "..."
+          end
+          return text
+        end
 
 				vim_item.abbr = trim(vim_item.abbr)
 				return vim_item
