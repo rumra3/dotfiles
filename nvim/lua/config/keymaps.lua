@@ -8,6 +8,40 @@ vim.keymap.set("n", "G", "Gzz")
 
 vim.keymap.set({"n", "i", "v"}, "<C-s>", ":update<CR>")
 
+
+-- locallist & quickfix
+local current_or_move = function(current)
+  return function(move)
+    return function()
+      if not pcall(move) then
+        pcall(current)
+      end
+    end
+  end
+end
+
+--  locallist
+local ll_or_next = current_or_move(vim.cmd.ll)
+vim.keymap.set("n", "<C-Left>", ll_or_next(vim.cmd.lprev))
+vim.keymap.set("n", "<C-Right>", ll_or_next(vim.cmd.lnext))
+vim.keymap.set("n", "<C-Up>", function()
+  vim.diagnostic.setloclist()
+  pcall(vim.cmd.lopen)
+end);
+vim.keymap.set("n", "<C-Down>", function() pcall(vim.cmd.lclose) end);
+
+--  quickfix
+--local cc_or_next = current_or_next(vim.cmd.cc)
+local cc_or_next = current_or_move(vim.cmd.cc)
+vim.keymap.set("n", "<Left>", cc_or_next(vim.cmd.cprev))
+vim.keymap.set("n", "<Right>", cc_or_next(vim.cmd.cnext))
+vim.keymap.set("n", "<Up>", function()
+  vim.diagnostic.setqflist()
+  pcall(vim.cmd.copen)
+end);
+vim.keymap.set("n", "<Down>", function() pcall(vim.cmd.cclose) end);
+
+
 -- copipe
 vim.keymap.set({"v", "n"}, "<leader>y", '"+y')
 vim.keymap.set("v", "<leader>Y", '"+yg_')
@@ -87,18 +121,6 @@ vim.keymap.set("n", "<leader>.", function()
     toggle_oil(dir)
   end
 end)
-
--- neowords
-local neowords = require("neowords")
-local p = neowords.pattern_presets
-
-local hops = neowords.get_word_hops(
-  p.snake_case,
-  p.camel_case,
-  p.upper_case,
-  p.number,
-  p.hex_color
-)
 
 -- nvim-surround
 require('nvim-surround').setup({

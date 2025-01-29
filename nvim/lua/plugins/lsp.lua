@@ -1,4 +1,4 @@
-local config = function(_, opts)
+local config = function(_, _) -- second arg would be `opts`
 	local lsp = require "lspconfig"
 	lsp.clangd.setup{}
 	lsp.hls.setup{
@@ -31,6 +31,7 @@ local config = function(_, opts)
       Lua = {}
     }
   }
+  lsp.texlab.setup{}
 
   local luasnip = require "luasnip"
   -- nvim-cmp setup
