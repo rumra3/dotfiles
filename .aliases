@@ -4,3 +4,19 @@ alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles exce
 
 alias vim='nvim'
 alias tmux='tmux -u'
+
+alias picture='feh -S name --version-sort -.|'
+alias document='zathura'
+alias video='mpv'
+alias audio='mpv'
+
+function cdmkdir() {
+	if [ ! -d "$1" ]; then
+		mkdir -p "$1"
+	else
+		echo "$1 already exists"
+	fi
+	cd "$1"
+}
+
+alias mcd='cdmkdir'
