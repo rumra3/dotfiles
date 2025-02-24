@@ -1,13 +1,26 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>ov", vim.cmd.Ex)
 vim.keymap.set("n", "<Space>", "<NOP>")
+--TODO consider other keybinds
+vim.keymap.set("n", "<C-x>", function()
+  if vim.fn.winnr('$') > 1 then
+    vim.cmd.quit()
+  end
+end)
 
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 vim.keymap.set("n", "G", "Gzz")
 
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+vim.keymap.set("n", "\\", ':vsplit ')
+vim.keymap.set("n", "-", ':split ')
+
 vim.keymap.set({"n", "i", "v"}, "<C-s>", ":update<CR>")
 
+vim.keymap.set("n", "<C-k>", function() vim.cmd.set("hls!") end)
 
 -- locallist & quickfix
 local current_or_move = function(current)
@@ -31,7 +44,6 @@ end);
 vim.keymap.set("n", "<C-Down>", function() pcall(vim.cmd.lclose) end);
 
 --  quickfix
---local cc_or_next = current_or_next(vim.cmd.cc)
 local cc_or_next = current_or_move(vim.cmd.cc)
 vim.keymap.set("n", "<Left>", cc_or_next(vim.cmd.cprev))
 vim.keymap.set("n", "<Right>", cc_or_next(vim.cmd.cnext))

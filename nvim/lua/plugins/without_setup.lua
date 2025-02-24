@@ -3,4 +3,5 @@ return {
 	"ThePrimeagen/harpoon",
 	"tpope/vim-fugitive",
 	"kylechui/nvim-surround",
+  "tpope/vim-abolish",
 }

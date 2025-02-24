@@ -19,8 +19,9 @@ exec_always fcitx5
 # automatic color temp -latitude -Longitude
 exec_always wlsunset -l 50 -L 8.8
 
-set $bg "/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png"
-output * bg $bg tile
+set $fallback '#d1d2d4'
+set $bg "$HOME/.config/sway/bg.png"
+output * bg $bg tile $fallback
 
 output HDMI-A-1 pos 0 0 res 1920x1080
 output eDP-1 pos 1920 0 res 1920x1080
@@ -197,7 +198,8 @@ bar {
     colors {
         statusline #ffffff
         background #323232
-        inactive_workspace #323232AA #323232AA #5c5c5cAA
+#inactive_workspace #323232AA #323232AA #5c5c5cAA
+        inactive_workspace #606060 #505050 #DBDBDB
         active_workspace #d0a7fc #c095fa #ffffff
         focused_workspace #ff93b3 #f5719f #ffffff
     }

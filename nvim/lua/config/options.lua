@@ -10,6 +10,8 @@ vim.opt.listchars = "tab:| ,trail:·,multispace:·,nbsp:~,leadmultispace:·   "
 vim.opt.smartindent = false
 vim.opt.cindent = true
 
+vim.opt.wrap = false
+
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 

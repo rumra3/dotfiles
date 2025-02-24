@@ -23,7 +23,11 @@ vim.g.maplocalleader = "\\"
 
 require("lazy").setup({
   spec = {
-  { "blazkowolf/gruber-darker.nvim", config = function() vim.cmd.colorscheme "gruber-darker" end },
+  { "blazkowolf/gruber-darker.nvim" },
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ... },
   { import = "plugins" },
   },
 })
+
+vim.o.background = "light"
+vim.cmd.colorscheme "gruvbox"

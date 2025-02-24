@@ -24,3 +24,6 @@ source $HOME/.aliases
 export PS1="%n@%m:%F{75}%1~ %(!.#.$)%f "
 
 precmd () { print -Pn "\e]2;$TERM - %/\a" } # title bar prompt
+
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:/opt/odin"
