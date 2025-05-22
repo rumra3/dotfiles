@@ -4,4 +4,5 @@ return {
 	"tpope/vim-fugitive",
 	"kylechui/nvim-surround",
   "tpope/vim-abolish",
+  "alaviss/nim.nvim",
 }

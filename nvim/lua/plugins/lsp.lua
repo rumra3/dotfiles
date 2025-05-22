@@ -6,6 +6,12 @@ local config = function(_, _) -- second arg would be `opts`
 	}
 	lsp.metals.setup{}
 	lsp.rust_analyzer.setup{}
+  lsp.jedi_language_server.setup{}
+  lsp.zls.setup{}
+  lsp.jdtls.setup{
+    cmd = { '/opt/jdtls/bin/jdtls' },
+  }
+  vim.g.zig_fmt_autosave = 0
   lsp.lua_ls.setup {
     on_init = function(client)
       if client.workspace_folders then
@@ -39,7 +45,7 @@ local config = function(_, _) -- second arg would be `opts`
   cmp.setup {
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+        luasnip.lsp_expand(args.body)
       end
     },
     mapping = cmp.mapping.preset.insert({
