@@ -10,6 +10,11 @@ alias document='zathura'
 alias video='mpv'
 alias audio='mpv'
 
+alias gs='git status -s'
+alias ga='git add'
+alias gu='git add -u'
+alias gc='git commit'
+
 function cdmkdir() {
 	if [ ! -d "$1" ]; then
 		mkdir -p "$1"

@@ -1,7 +1,3 @@
-if [ -d "$HOME/AppImages" ]; then
-    export PATH="$PATH:$HOME/AppImages"
-fi
-
 export EDITOR='nvim'
 export VISUAL='nvim'
 

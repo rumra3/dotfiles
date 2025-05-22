@@ -27,3 +27,4 @@ precmd () { print -Pn "\e]2;$TERM - %/\a" } # title bar prompt
 
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:/opt/odin"
+export PATH="$PATH:/opt/zen"
