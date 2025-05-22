@@ -1,4 +1,4 @@
-vim.opt.spell = true
+vim.opt.spell = false
 
 vim.opt.cindent = false
 vim.opt.autoindent = true
