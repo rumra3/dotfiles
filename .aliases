@@ -2,6 +2,7 @@ alias ls='ls --color=auto'
 alias ll='ls -lav --ignore=..'   # show long listing of all except ".."
 alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles except "."
 
+alias v='nvim'
 alias vim='nvim'
 alias tmux='tmux -u'
 
@@ -10,18 +11,11 @@ alias document='zathura'
 alias video='mpv'
 alias audio='mpv'
 
+alias wifi='nmtui'
+
 alias gs='git status -s'
 alias ga='git add'
 alias gu='git add -u'
 alias gc='git commit'
 
-function cdmkdir() {
-	if [ ! -d "$1" ]; then
-		mkdir -p "$1"
-	else
-		echo "$1 already exists"
-	fi
-	cd "$1"
-}
-
-alias mcd='cdmkdir'
+export MANPAGER='nvim --clean +Man!'
