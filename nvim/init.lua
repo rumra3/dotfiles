@@ -1,10 +1,10 @@
 vim.opt.termguicolors = true
 
 local modules = {
-	"config.lazy",
-	"config.options",
-	"config.keymaps",
-	"config.plugin-keymaps",
+	"lazy-init",
+	"options",
+	"keymap.vanilla",
+	"keymap.plugins",
 }
 
 for _, mod in ipairs(modules) do
