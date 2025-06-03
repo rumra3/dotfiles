@@ -10,6 +10,7 @@ alias picture='feh -S name --version-sort -.|'
 alias document='zathura'
 alias video='mpv'
 alias audio='mpv'
+alias music='rmpc'
 
 alias wifi='nmtui'
 
@@ -18,4 +19,4 @@ alias ga='git add'
 alias gu='git add -u'
 alias gc='git commit'
 
-export MANPAGER='nvim --clean +Man!'
+export MANPAGER='nvim --clean -u $HOME/.config/nvim/lua/config/keymaps.lua +Man!'

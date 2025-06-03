@@ -7,7 +7,7 @@ set $right l
 
 set $menu wmenu-run
 set $term foot
-set $expl thunar
+set $expl foot ranger
 set $browser /opt/zen/zen
 
 bindsym $mod+d exec $menu
