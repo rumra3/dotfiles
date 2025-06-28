@@ -6,6 +6,8 @@ alias v='nvim'
 alias vim='nvim'
 alias tmux='tmux -u'
 
+alias hx='helix'
+
 alias picture='feh -S name --version-sort -.|'
 alias document='zathura'
 alias video='mpv'
@@ -19,4 +21,6 @@ alias ga='git add'
 alias gu='git add -u'
 alias gc='git commit'
 
-export MANPAGER='nvim --clean -u $HOME/.config/nvim/lua/keymap/vanilla.lua +Man!'
+#export MANPAGER='nvim --clean -u $HOME/.config/nvim/lua/keymap/vanilla.lua +Man!'
+
+export PATH="$PATH:/opt"

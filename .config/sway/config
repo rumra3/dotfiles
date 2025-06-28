@@ -7,8 +7,8 @@ set $right l
 
 set $menu wmenu-run
 set $term foot
-set $expl foot ranger
-set $browser /opt/zen/zen
+set $expl thunar
+set $browser qutebrowser
 
 bindsym $mod+d exec $menu
 bindsym $mod+Return exec $term
@@ -28,19 +28,19 @@ output eDP-1 pos 1920 0 res 1920x1080
 
 ### Idle configuration
 
-set $lockopt -ef -i $bg -t
-bindsym $mod+m exec swaylock $lockopt
-bindsym $mod+Shift+m exec swaylock $lockopt && systemctl suspend
+set $lock swaylock -ef -i $bg -t
+bindsym $mod+m exec $lock
+bindsym $mod+Shift+m exec $lock && systemctl suspend
 #exec swayidle -w \
 #        timeout 300 "swaylock $lockopt" \
 #        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #        before-sleep "swaylock $lockopt"
 
-bindswitch --reload lid:on exec swaylock $lockopt && systemctl suspend
+bindswitch --reload lid:on exec $lock && systemctl suspend
 bindswitch --reload --locked lid:on exec systemctl suspend
 
 input type:pointer {
-    accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+    accel_profile "flat" # disable mouse acceleration
     pointer_accel 0.2 # set mouse sensitivity (between -1 and 1)
 }
 
@@ -54,8 +54,9 @@ input type:keyboard {
 
 # Basics:
 
-    bindsym $mod+Shift+q kill
-    bindsym button2 kill
+    bindsym $mod+BackSpace kill
+    bindsym $mod+c kill
+    bindsym $mod+button2 kill
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -65,7 +66,7 @@ input type:keyboard {
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -116,56 +117,25 @@ input type:keyboard {
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 
-# Layout stuff:
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
-
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
     bindsym $mod+t layout toggle split
 
-    # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
+	# floating windows
     bindsym $mod+Shift+space floating toggle
-
-    # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-
-# Scratchpad:
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
+	# scratchpad
     bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 
-# Resizing containers:
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
@@ -175,7 +145,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+	bindsym $mod+r mode "resize"
 
 # Utilities:
     # Special keys to adjust volume via PulseAudio
@@ -198,7 +168,6 @@ bar {
     colors {
         statusline #ffffff
         background #323232
-#inactive_workspace #323232AA #323232AA #5c5c5cAA
         inactive_workspace #606060 #505050 #DBDBDB
         active_workspace #d0a7fc #c095fa #ffffff
         focused_workspace #ff93b3 #f5719f #ffffff
@@ -206,6 +175,9 @@ bar {
 }
 client.focused #ff93b3 #f5719f #ffffff #c095fa
 # got these colors from 綺々羅々ヴィヴィ
+
+default_border pixel 2
+default_floating_border pixel 2
 
 # these i hope fix popup notifs
 for_window [window_role="pop-up"] floating enable
