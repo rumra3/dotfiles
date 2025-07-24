@@ -8,7 +8,7 @@ set $right l
 set $menu wmenu-run
 set $term foot
 set $expl thunar
-set $browser qutebrowser
+set $browser /opt/zen/zen
 
 bindsym $mod+d exec $menu
 bindsym $mod+Return exec $term

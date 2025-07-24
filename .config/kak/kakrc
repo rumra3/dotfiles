@@ -26,7 +26,9 @@ map global normal Y '<a-l>y' -docstring 'yank to end of line'
 
 map global user '#' %{: comment-line<ret>} -docstring 'comment lines'
 
-map global user c 'x_c' -docstring 'change line'
+# make c more intuitive with full lines
+# this achieves vim's C with xc
+map global normal c '_c'
 
 map global user y '<a-|> wl-copy -n 2> /dev/null <ret>' -docstring 'yank selection into the clipboard'
 map global user p '<a-!> wl-paste -n <ret>' -docstring 'paste from clipboard'
@@ -42,5 +44,5 @@ map global normal <c-p> ':clang-parse<ret>' -docstring 'clang-parse current buff
 map global normal <c-l> ':clang-diagnostics-next<ret>'
 
 
-define-command 'reflow' 'execute-keys "| fmt -w 79<ret>"'
+define-command 'reflow' 'execute-keys "| fmt -uw 79<ret>"'
 
